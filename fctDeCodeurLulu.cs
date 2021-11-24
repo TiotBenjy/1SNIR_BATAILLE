@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -35,21 +36,40 @@ namespace Bataille
 
         static void BattreCarte()
         {
-            Random aleatoire = new Random();
+            // Ajoute au tableau toutes les valeurs de 0 à 31
+            jeu = Enumerable.Range(0, 32).ToArray();
 
-            int a = 0;
+            Random rnd = new Random();
 
-            for(int i = 0; i < 32; i++)
+            // Pour chaque valeur du tableuau
+            for(int i = 0; i < jeu.Length; i++)
             {
-                a = aleatoire.Next(0,31);
-                jeu[i] = a;
+                int j = rnd.Next(i, jeu.Length); // On génère un nombre entre le l'index du tableau et le nombre de valeurs du tableau
+
+                int temp = jeu[i]; // On stoque la valeur de l'itération dans une variable temp
+                jeu[i] = jeu[j]; // On inverse la valeur de litération avec la valeur de l'index générée
+                jeu[j] = temp; // On remplace la valeur par la valeur temporaire
             }
 
-            foreach(int i in jeu)
+            foreach (int carte in jeu)
             {
-                partie.Enqueue(i);
-            }
+                //Console.WriteLine(carte);
+                partie.Enqueue(carte);
+            };
         }
 
+        public static int GenerateRandomInt()
+        {
+            int minVal = 0, maxVal = 31;
+
+            var rnd = new byte[4];
+            using (var rng = new RNGCryptoServiceProvider())
+                rng.GetBytes(rnd);
+            var i = Math.Abs(BitConverter.ToInt32(rnd, 0));
+
+            return Convert.ToInt32(i % (maxVal - minVal + 1) + minVal);
+        }
+
+        
     }
 }

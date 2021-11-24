@@ -20,7 +20,7 @@ namespace Bataille
 
         public static int[] jeu = new int[32];
 
-        public static Queue<int> partie = new Queue<int>();
+        public static Queue<int> partie = new Queue<int>(32);
         public static Queue<int> josse = new Queue<int>();
         public static Queue<int> lulu = new Queue<int>();
         public static Stack<int> tapisJ = new Stack<int>();
@@ -34,6 +34,8 @@ namespace Bataille
 
             AffTab();
 
+            Console.WriteLine("\n {0}", partie.Count);
+
             Console.ReadKey();
         }
         
@@ -43,14 +45,14 @@ namespace Bataille
 
             foreach (int i in josse)
             {
-                Console.Write(i + "\t");
+                Console.Write(i + "\t | \t");
             }
 
             Console.WriteLine("\nJeu de lulu : \n ");
 
             foreach (int i in lulu)
-            {                
-                Console.Write(i + "\t");
+            {
+                Console.Write(i + "\t | \t");
             }
         }
 

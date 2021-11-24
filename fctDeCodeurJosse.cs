@@ -15,8 +15,7 @@ namespace Bataille
             //Enqueue();
             //Dequeue();
 
-
-           for ( int i = 0; i < 16; i++ )
+            for (int i = 0; i < 16; i++)
             {
                 josse.Enqueue(partie.Dequeue());
                 lulu.Enqueue(partie.Dequeue());
