@@ -6,8 +6,23 @@ namespace Bataille
     {
         static void fct2()
         {
-            Console.WriteLine("Hello fonc 2!");
-            Console.WriteLine(VALET);
+            
         }
+
+         
+         static void CreerCartes()
+         {
+            int i = 0;
+
+            for(int c = 0; c < 4; c++)
+            {
+                for(int f = 7; f < 15; f++)
+                {
+                    carte[i] = f;
+                    couleur[i] = c;
+                    i++;
+                };
+            };
+         }
     }
 }
