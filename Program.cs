@@ -18,11 +18,14 @@ namespace Bataille
 
         // Todo - Déclarer les Queue et les stack ...
 
+        //Paquet de cartes
         public static int[] jeu = new int[32];
-
         public static Queue<int> partie = new Queue<int>(32);
+
+        //Tas de chaque joueurs
         public static Queue<int> josse = new Queue<int>();
         public static Queue<int> lulu = new Queue<int>();
+
         public static Stack<int> tapisJ = new Stack<int>();
         public static Stack<int> tapisL = new Stack<int>();
 
@@ -33,8 +36,6 @@ namespace Bataille
             Distribuerjeu();
 
             AffTab();
-
-            Console.WriteLine("\n {0}", partie.Count);
 
             Console.ReadKey();
         }

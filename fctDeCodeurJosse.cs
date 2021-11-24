@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Bataille
 {
-    partial class Program
+    partial class Program//simon
     {
         
         public static void Distribuerjeu()
@@ -15,10 +15,10 @@ namespace Bataille
             //Enqueue();
             //Dequeue();
 
-            for (int i = 0; i < 16; i++)
+            for (int i = 0; i <= 15; i++)
             {
-                josse.Enqueue(partie.Dequeue());
-                lulu.Enqueue(partie.Dequeue());
+                josse.Enqueue(partie.Dequeue());//remplissage de la queue avec les 16 premieres carte de la queue partie
+                lulu.Enqueue(partie.Dequeue());//remplissage de la queue avec les 16 dernieres carte de la queue partie
             }
         }
        
