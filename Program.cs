@@ -1,4 +1,9 @@
 ﻿using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
 namespace Bataille
 {
@@ -10,14 +15,44 @@ namespace Bataille
 
         public static int[] carte = new int[32];
         public static int[] couleur = new int[32];
+
         // Todo - Déclarer les Queue et les stack ...
-        
+
+        public static int[] jeu = new int[32];
+
+        public static Queue<int> partie = new Queue<int>();
+        public static Queue<int> josse = new Queue<int>();
+        public static Queue<int> lulu = new Queue<int>();
+        public static Stack<int> tapisJ = new Stack<int>();
+        public static Stack<int> tapisL = new Stack<int>();
+
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello World!");
-            Console.WriteLine(PIQUE);
             CreerCarte();
-            fct2();
+            BattreCarte();
+            Distribuerjeu();
+
+            AffTab();
+
+            Console.ReadKey();
         }
+        
+        static void AffTab()
+        {
+            Console.WriteLine("Jeu de joss : \n");
+
+            foreach (int i in josse)
+            {
+                Console.Write(i + "\t");
+            }
+
+            Console.WriteLine("\nJeu de lulu : \n ");
+
+            foreach (int i in lulu)
+            {                
+                Console.Write(i + "\t");
+            }
+        }
+
     }
 }

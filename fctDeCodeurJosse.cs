@@ -1,14 +1,27 @@
 ﻿using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
 namespace Bataille
 {
     partial class Program
     {
-        static void CreerCarte()
+        
+        public static void Distribuerjeu()
         {
-            Console.WriteLine("Hello fct1!");
-            carte[0] = PIQUE;
-            Console.WriteLine(CARREAU);
+            //Enqueue();
+            //Dequeue();
+
+
+           for ( int i = 0; i < 16; i++ )
+            {
+                josse.Enqueue(partie.Dequeue());
+                lulu.Enqueue(partie.Dequeue());
+            }
         }
+       
     }
 }
