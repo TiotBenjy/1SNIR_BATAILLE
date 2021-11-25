@@ -63,7 +63,7 @@ namespace Bataille
 
         static void RamasserPli()
         {
-
+            josse.Enqueue(tapisL.Pop());
         }
 
         public static int GenerateRandomInt()

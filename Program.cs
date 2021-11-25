@@ -35,6 +35,7 @@ namespace Bataille
             BattreCarte();
             Distribuerjeu();
 
+            //RamasserPli();
             AffTab();
 
             Console.ReadKey();
