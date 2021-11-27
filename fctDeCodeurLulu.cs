@@ -10,6 +10,9 @@ namespace Bataille
 {
     partial class Program
     {
+
+        //Benjamin 
+
         static void fct1()
         {
            /* Console.WriteLine("Hello fct1!");
@@ -19,13 +22,13 @@ namespace Bataille
         }
 
         
-        static void CreerCarte()
+        static void CreerCarte() //Fonction création cartes
         {
             int i = 0;
 
-            for (int c = 0; c < 4; c++)
+            for (int c = 0; c < 4; c++) //boucle pour chaque couleur
             {
-                for (int f = 7; f < 15; f++)
+                for (int f = 7; f < 15; f++) //Boucle pour chaque carte, on prends les nombres de 7 à 15
                 {
                     carte[i] = f;
                     couleur[i] = c;
@@ -56,6 +59,11 @@ namespace Bataille
                 //Console.WriteLine(carte);
                 partie.Enqueue(carte);
             };
+        }
+
+        static void RamasserPli()
+        {
+            josse.Enqueue(tapisL.Pop());
         }
 
         public static int GenerateRandomInt()
