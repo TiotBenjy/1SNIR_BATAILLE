@@ -31,9 +31,10 @@ namespace Bataille
             CreerCarte();
             BattreCarte();
             Distribuerjeu();
+            
 
-            AffTab();
-
+            //AffTab();
+            tour();
             Console.WriteLine("\n {0}", partie.Count);
 
             Console.ReadKey();
