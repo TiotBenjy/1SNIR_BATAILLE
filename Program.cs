@@ -1,17 +1,15 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Threading;
 
 namespace Bataille
 {
-    partial class Program
+    internal partial class Program
     {
-        // Modélisation du jeu : Déclarer les variables 
-        public const int PIQUE = 0, COEUR = 1, CARREAU = 2, TREFLE = 3; // couleurs 
-        public const int SEPT = 7, HUIT = 8, NEUF = 9, DIX = 10, VALET = 11, DAME = 12, ROI = 13, AS = 14; // figures 
+        // Modélisation du jeu : Déclarer les variables
+        public const int PIQUE = 0, COEUR = 1, CARREAU = 2, TREFLE = 3; // couleurs
+
+        public const int SEPT = 7, HUIT = 8, NEUF = 9, DIX = 10, VALET = 11, DAME = 12, ROI = 13, AS = 14; // figures
 
         public static int[] carte = new int[32];
         public static int[] couleur = new int[32];
@@ -20,43 +18,81 @@ namespace Bataille
 
         //Paquet de cartes
         public static int[] jeu = new int[32];
+
         public static Queue<int> partie = new Queue<int>(32);
 
         //Tas de chaque joueurs
         public static Queue<int> josse = new Queue<int>();
+
         public static Queue<int> lulu = new Queue<int>();
 
         public static Stack<int> tapisJ = new Stack<int>();
         public static Stack<int> tapisL = new Stack<int>();
 
-        static void Main(string[] args)
+        private static void Main(string[] args)
         {
+            Console.OutputEncoding = System.Text.Encoding.UTF8;
+
+            StartGame();
+
+            Console.WriteLine("\n✨ Appuyez sur une touche pour commencer le jeu ...");
+            Console.ReadKey();
+
             CreerCarte();
+            Thread.Sleep(2000);
             BattreCarte();
+            Thread.Sleep(2000);
             Distribuerjeu();
-            
+            Thread.Sleep(2000);
+            Jeu();
+            displayWinners();
 
-            Console.WriteLine("\n {0}", partie.Count);
-
+            /**
+             DEBUG :
+                AffTab();
+             */
+            Console.WriteLine("\nLa bataille entre Josse et Lulu est terminée !");
+            Console.ReadKey();
+            Credits();
+            Console.WriteLine("\n✨ Appuyez sur une touche pour fermer le jeu ...");
             Console.ReadKey();
         }
-        
-        static void AffTab()
+
+        public static void StartGame()
+        {
+            Console.WriteLine("▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄"
+                + "\n█████░██░▄▄▄██░██░████░▄▄▀██░▄▄▄████░████░▄▄▀████░▄▄▀█░▄▄▀█▄▄░▄▄█░▄▄▀█▄░▄██░█████░█████░▄▄▄██"
+                + "\n█████░██░▄▄▄██░██░████░██░██░▄▄▄████░████░▀▀░████░▄▄▀█░▀▀░███░███░▀▀░██░███░█████░█████░▄▄▄██"
+                + "\n██░▀▀░██░▀▀▀██▄▀▀▄████░▀▀░██░▀▀▀████░▀▀░█░██░████░▀▀░█░██░███░███░██░█▀░▀██░▀▀░██░▀▀░██░▀▀▀██"
+                + "\n▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀");
+        }
+
+        private static void Credits()
+        {
+            Console.WriteLine("\n\n  ___             ___  "
+                           + "\n (o o)           (o o)"
+                           + "\n(  V  ) CRÉDITS (  V  )"
+                           + "\n-m - m-------- - m - m--");
+
+            Console.WriteLine("\n- Simon DELMOTTE");
+            Console.WriteLine("- Benjamin GOURLEZ");
+        }
+
+        private static void AffTab()
         {
             Console.WriteLine("Jeu de joss : \n");
 
-            foreach (int i in josse)
+            foreach (int i in tapisJ)
             {
-                Console.Write(i + "\t | \t");
+                Console.Write(i + "\t ");
             }
 
             Console.WriteLine("\nJeu de lulu : \n ");
 
-            foreach (int i in lulu)
+            foreach (int i in tapisL)
             {
-                Console.Write(i + "\t | \t");
+                Console.Write(i + "\t ");
             }
         }
-
     }
 }
