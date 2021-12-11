@@ -26,8 +26,7 @@ namespace Bataille
 
         public static Queue<int> lulu = new Queue<int>();
 
-        public static Stack<int> tapisJ = new Stack<int>();
-        public static Stack<int> tapisL = new Stack<int>();
+        public static Stack<int> Tapis = new Stack<int>();
 
         private static void Main(string[] args)
         {
@@ -41,8 +40,11 @@ namespace Bataille
             CreerCarte();
             Thread.Sleep(2000);
             BattreCarte();
-            Thread.Sleep(2000);
+            Thread.Sleep(3000);
+            CouperJeu();
+            Thread.Sleep(3000);
             Distribuerjeu();
+            Thread.Sleep(2000);
             Thread.Sleep(2000);
             Jeu();
             displayWinners();
@@ -51,7 +53,6 @@ namespace Bataille
              DEBUG :
                 AffTab();
              */
-            Console.WriteLine("\nLa bataille entre Josse et Lulu est terminée !");
             Console.ReadKey();
             Credits();
             Console.WriteLine("\n✨ Appuyez sur une touche pour fermer le jeu ...");
@@ -82,14 +83,14 @@ namespace Bataille
         {
             Console.WriteLine("Jeu de joss : \n");
 
-            foreach (int i in tapisJ)
+            foreach (int i in josse)
             {
                 Console.Write(i + "\t ");
             }
 
             Console.WriteLine("\nJeu de lulu : \n ");
 
-            foreach (int i in tapisL)
+            foreach (int i in lulu)
             {
                 Console.Write(i + "\t ");
             }

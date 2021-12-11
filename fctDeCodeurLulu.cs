@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 
@@ -7,18 +6,9 @@ namespace Bataille
 {
     internal partial class Program
     {
-        //Benjamin
+        //Partie Benjamin
 
-        private static void fct1()
-        {
-            /* Console.WriteLine("Hello fct1!");
-             carte[0] = PIQUE;
-             Console.WriteLine(CARREAU);*/
-        }
-
-        public static Queue<int> TempTas = new Queue<int>();
-
-        private static void CreerCarte() //Fonction création cartes
+        public static void CreerCarte()
         {
             Console.WriteLine("\n⏲️ Création des cartes. Veuillez patienter ...");
 
@@ -28,14 +18,66 @@ namespace Bataille
             {
                 for (int f = 7; f < 15; f++) //Boucle pour chaque carte, on prends les nombres de 7 à 15
                 {
-                    carte[k] = f;
-                    couleur[k] = c;
-                    k++;
+                    carte[k] = f; //Ajout de la carte en fonction de l'itération en cours
+                    couleur[k] = c; //Ajout de la couleur en fonction de l'itération en cours
+                    k++; //Ajoute 1 au competeur d'indice des tableaux
                 };
             };
         }
 
-        private static void BattreCarte()
+        public static void CouperJeu()
+        {
+            Console.WriteLine("\n⏲️ Le jeu va être coupé, Veuillez patienter ...");
+
+            //gestion de la file
+
+            var listeCartesPartie = partie.ToList(); //On copie la file dans une liste
+            partie.Clear(); //on vide la file ou se trouve toutes les cartes
+
+            //Gestion de la carte piochée
+
+            Console.Write("\nJosse donnez un nombre entre 2 et 31 : ");
+            int numCarteJosse = int.Parse(Console.ReadLine());
+
+            while (numCarteJosse < 2 || numCarteJosse > 31)
+            {
+                Console.Write("\nJosse le nombre entré n'est pas valide, donnez un nouveau nombre entre 2 et 31 : ");
+                numCarteJosse = int.Parse(Console.ReadLine()); //On récupère le nombre entrée
+            };
+
+            identifyCard("Josse", numCarteJosse);
+
+            Console.WriteLine("\nlulu donnez un nombre entre 2 et 31 : ");
+            int numCarteLulu = int.Parse(Console.ReadLine());
+
+            while (numCarteLulu < 2 || numCarteLulu > 31)
+            {
+                Console.Write("\nLulu le nombre entré n'est pas valide, donnez un nouveau nombre entre 2 et 31 : ");
+                numCarteLulu = int.Parse(Console.ReadLine());
+            };
+
+            identifyCard("Lulu", numCarteLulu);
+
+            //Gestion du coupage des cartes
+            josse.Enqueue(numCarteJosse);
+            lulu.Enqueue(numCarteLulu);
+
+            for (int c = 0; c < listeCartesPartie.Count; c++)
+            {
+                /* Vérification du nombre entré avec les valeurs du tableau
+                 * Reconstruction de la file de carte qui constitue la partie
+                 */
+
+                if (listeCartesPartie[c] == numCarteJosse)
+                    continue;
+                else if (listeCartesPartie[c] == numCarteLulu)
+                    continue;
+                else
+                    partie.Enqueue(listeCartesPartie[c]);
+            }
+        }
+
+        public static void BattreCarte()
         {
             Console.WriteLine("\n⌛ Mélange des cartes en cours. Veuillez patienter ...");
 
@@ -63,36 +105,60 @@ namespace Bataille
 
         public static void RamasserPli(int carteJ, int carteL)
         {
-            int newCarteJosse = 0, newCarteLulu = 0;
+            // Vériification symboles des cartes
 
             if (carte[carteJ] > carte[carteL])
             {
-                tapisJ.Push(carteJ);
-                tapisJ.Push(carteL);
+                josse.Enqueue(carteL);
+                josse.Enqueue(carteJ);
 
-                if (TempTas.Count != 0)
+                if (Tapis.Count != 0)
                 {
-                    foreach (int carte in TempTas)
-                        tapisJ.Push(carte);
+                    Tapis.Reverse();
+
+                    if (Tapis.Count > 2)
+                    {
+                        for (int i = 0; i < Tapis.Count; i++)
+                        {
+                            josse.Enqueue(Tapis.Pop());
+                            josse.Enqueue(Tapis.Pop());
+                        };
+                    }
+                    else
+                    {
+                        josse.Enqueue(Tapis.Pop());
+                        josse.Enqueue(Tapis.Pop());
+                    };
                 }
             }
             else if (carte[carteJ] < carte[carteL])
             {
-                tapisL.Push(carteJ);
-                tapisL.Push(carteL);
+                lulu.Enqueue(carteJ);
+                lulu.Enqueue(carteL);
 
-                if (TempTas.Count != 0)
+                if (Tapis.Count != 0)
                 {
-                    foreach (int carte in TempTas)
-                        tapisJ.Push(carte);
-                }
+                    if (Tapis.Count > 2)
+                    {
+                        for (int i = 0; i < Tapis.Count; i++)
+                        {
+                            josse.Enqueue(Tapis.Pop());
+                            josse.Enqueue(Tapis.Pop());
+                        };
+                    }
+                    else
+                    {
+                        josse.Enqueue(Tapis.Pop());
+                        josse.Enqueue(Tapis.Pop());
+                    };
+                };
             }
             else if (carte[carteJ] == carte[carteL])
             {
-                if (josse.Count != 0 && lulu.Count != 0)
+                if (josse.Count > 0 && lulu.Count > 0)
                 {
-                    TempTas.Enqueue(josse.Dequeue());
-                    TempTas.Enqueue(lulu.Dequeue());
+                    Tapis.Push(josse.Dequeue());
+                    Tapis.Push(lulu.Dequeue());
 
                     if (josse.Count != 0 && lulu.Count != 0)
                     {
@@ -102,10 +168,12 @@ namespace Bataille
                         numTour++;
                         Console.WriteLine("\n\u231B Tour N°{0} En cours ...", (numTour + 1));
 
-                        newCarteJosse = josse.Dequeue();
-                        newCarteLulu = lulu.Dequeue();
+                        int newCarteJosse = josse.Dequeue();
+                        int newCarteLulu = lulu.Dequeue();
 
-                        identifyCard(newCarteJosse, newCarteLulu);
+                        identifyCard("Josse", newCarteJosse);
+                        identifyCard("Lulu", newCarteLulu);
+
                         RamasserPli(newCarteJosse, newCarteLulu);
                     }
                 }
