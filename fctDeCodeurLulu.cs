@@ -47,7 +47,7 @@ namespace Bataille
 
             identifyCard("Josse", numCarteJosse);
 
-            Console.WriteLine("\nlulu donnez un nombre entre 2 et 31 : ");
+            Console.Write("\nlulu donnez un nombre entre 2 et 31 : ");
             int numCarteLulu = int.Parse(Console.ReadLine());
 
             while (numCarteLulu < 2 || numCarteLulu > 31)
@@ -57,6 +57,8 @@ namespace Bataille
             };
 
             identifyCard("Lulu", numCarteLulu);
+
+            Console.WriteLine("\n⏲️ Le jeu est entrain d'être coupé !");
 
             //Gestion du coupage des cartes
             josse.Enqueue(numCarteJosse);
@@ -118,7 +120,7 @@ namespace Bataille
 
                     if (Tapis.Count > 2)
                     {
-                        for (int i = 0; i < Tapis.Count; i++)
+                        for (int i = 0; i < (Tapis.Count / 2); i++)
                         {
                             josse.Enqueue(Tapis.Pop());
                             josse.Enqueue(Tapis.Pop());
@@ -140,7 +142,7 @@ namespace Bataille
                 {
                     if (Tapis.Count > 2)
                     {
-                        for (int i = 0; i < Tapis.Count; i++)
+                        for (int i = 0; i < (Tapis.Count / 2); i++)
                         {
                             josse.Enqueue(Tapis.Pop());
                             josse.Enqueue(Tapis.Pop());
@@ -155,27 +157,32 @@ namespace Bataille
             }
             else if (carte[carteJ] == carte[carteL])
             {
-                if (josse.Count > 0 && lulu.Count > 0)
+                Bataille();
+            }
+        }
+
+        public static void Bataille()
+        {
+            if (josse.Count > 0 && lulu.Count > 0)
+            {
+                Tapis.Push(josse.Dequeue());
+                Tapis.Push(lulu.Dequeue());
+
+                if (josse.Count != 0 && lulu.Count != 0)
                 {
-                    Tapis.Push(josse.Dequeue());
-                    Tapis.Push(lulu.Dequeue());
+                    Console.WriteLine("\n🃏 Les joueurs ont posé le même symbole ils ajoutent une carte à l'envers.");
+                    Thread.Sleep(2000);
 
-                    if (josse.Count != 0 && lulu.Count != 0)
-                    {
-                        Console.WriteLine("\n🃏 Les joueurs ont posé le même symbole ils ajoutent une carte à l'envers.");
-                        Thread.Sleep(2000);
+                    numTour++;
+                    Console.WriteLine("\n\u231B Tour N°{0} En cours ...", (numTour + 1));
 
-                        numTour++;
-                        Console.WriteLine("\n\u231B Tour N°{0} En cours ...", (numTour + 1));
+                    int newCarteJosse = josse.Dequeue();
+                    int newCarteLulu = lulu.Dequeue();
 
-                        int newCarteJosse = josse.Dequeue();
-                        int newCarteLulu = lulu.Dequeue();
+                    identifyCard("Josse", newCarteJosse);
+                    identifyCard("Lulu", newCarteLulu);
 
-                        identifyCard("Josse", newCarteJosse);
-                        identifyCard("Lulu", newCarteLulu);
-
-                        RamasserPli(newCarteJosse, newCarteLulu);
-                    }
+                    RamasserPli(newCarteJosse, newCarteLulu);
                 }
             }
         }

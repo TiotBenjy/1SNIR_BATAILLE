@@ -5,7 +5,8 @@ namespace Bataille
 {
     internal partial class Program
     {
-        public static int nbreTours = 16;
+        // Partie Simon
+
         public static int numTour = 0;
 
         public static void Distribuerjeu()
@@ -14,8 +15,8 @@ namespace Bataille
 
             for (int i = 0; i < (partie.Count / 2); i++)
             {
-                josse.Enqueue(partie.Dequeue());// remplissage
-                lulu.Enqueue(partie.Dequeue());//
+                josse.Enqueue(partie.Dequeue()); // remplissage tas de carte de Josse
+                lulu.Enqueue(partie.Dequeue());  // remplissage tas de carte de Lulu
             }
         }
 
