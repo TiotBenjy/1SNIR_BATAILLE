@@ -75,66 +75,66 @@ namespace Bataille
         {
             //Détermination Symbole et couleur carte
             int figureCarteJ = carte[carteJoueur];
-            string figureJ = "";
+            string figure = "";
 
             int couleurCarteJ = couleur[carteJoueur];
-            string couleurJ = "";
+            string couleurCarte = "";
 
             switch (figureCarteJ)
             {
                 case SEPT:
-                    figureJ = "SEPT";
+                    figure = "SEPT";
                     break;
 
                 case HUIT:
-                    figureJ = "HUIT";
+                    figure = "HUIT";
                     break;
 
                 case NEUF:
-                    figureJ = "NEUF";
+                    figure = "NEUF";
                     break;
 
                 case DIX:
-                    figureJ = "DIX";
+                    figure = "DIX";
                     break;
 
                 case VALET:
-                    figureJ = "VALET";
+                    figure = "VALET";
                     break;
 
                 case DAME:
-                    figureJ = "DAME";
+                    figure = "DAME";
                     break;
 
                 case ROI:
-                    figureJ = "ROI";
+                    figure = "ROI";
                     break;
 
                 case AS:
-                    figureJ = "AS";
+                    figure = "AS";
                     break;
             };
 
             switch (couleurCarteJ)
             {
                 case PIQUE:
-                    couleurJ = "PIQUE";
+                    couleurCarte = "PIQUE";
                     break;
 
                 case COEUR:
-                    couleurJ = "COEUR";
+                    couleurCarte = "COEUR";
                     break;
 
                 case CARREAU:
-                    couleurJ = "CARREAU";
+                    couleurCarte = "CARREAU";
                     break;
 
                 case TREFLE:
-                    couleurJ = "TREFLE";
+                    couleurCarte = "TREFLE";
                     break;
             };
 
-            Console.WriteLine(joueur + " à pioché la carte " + figureJ + " de " + couleurJ);
+            Console.WriteLine(joueur + " à pioché la carte " + figure + " de " + couleurCarte);
         }
     }
 }
