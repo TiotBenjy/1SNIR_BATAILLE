@@ -75,8 +75,8 @@ namespace Bataille
                            + "\n(  V  ) CRÉDITS (  V  )"
                            + "\n-m - m-------- - m - m--");
 
-            Console.WriteLine("\n- Simon DELMOTTE");
-            Console.WriteLine("- Benjamin GOURLEZ");
+            Console.WriteLine("\n- Simon D");
+            Console.WriteLine("- Benjamin G");
         }
 
         private static void AffTab()
